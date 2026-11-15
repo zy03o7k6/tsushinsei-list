@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>通信制高校一覧 2026｜在籍者数・キャンパス・業界団体</title>
+<title>通信制高校一覧 2026｜在籍者数・キャンパス・業界団体・財務</title>
 <meta name="description" content="文部科学省「分かる・見つかる通信制高等学校」の掲載データ（令和8年4月1日時点）をもとに、全国の通信制高校の本校と連携施設（キャンパス・サポート校）の在籍者数・定員を検索・比較できる一覧。業界団体（私通協・新学会）への加盟状況も掲載。">
 <link rel="canonical" href="https://zy03o7k6.github.io/tsushinsei-list/">
 <meta property="og:type" content="website">
@@ -57,7 +57,26 @@ h1{font-family:var(--display);font-weight:700;font-size:22px;margin:0;text-wrap:
 .about summary{cursor:pointer;color:var(--accent);font-size:13px}
 .about p{margin:6px 0 0;line-height:1.7}
 .sticky{position:sticky;top:0;z-index:5;background:var(--paper);padding:10px 0 8px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid var(--line)}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.fin-note{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+.fin-tbl{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums;background:var(--card);border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.fin-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px 0 0}
+.fin-tbl th,.fin-tbl td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.fin-tbl th:first-child,.fin-tbl td:first-child{text-align:left;position:sticky;left:0;background:var(--card)}
+.fin-tbl thead th{font-size:11.5px;color:var(--muted);font-weight:700}
+.neg{color:#c2410c}
+.fcard{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:11px 12px;margin:10px 0 0;font-size:13px}
+.fcard h3{margin:0 0 2px;font-size:15px}
+.fcard .sub{color:var(--muted);font-size:12px}
+.bars{display:flex;flex-direction:column;gap:5px;margin:8px 0}
+.bar{display:grid;grid-template-columns:6.6em 1fr 6.2em;white-space:nowrap;align-items:center;gap:6px;font-size:12px;font-variant-numeric:tabular-nums}
+.bar .tr{height:8px;background:var(--line);border-radius:4px;position:relative;overflow:hidden}
+.bar .fl{position:absolute;top:0;bottom:0;left:0;background:var(--accent);border-radius:4px}
+.bar .fl.neg{background:#c2410c}
+.gloss{font-size:12.5px;color:var(--muted)}
+.gloss dt{font-weight:700;color:var(--ink);margin-top:6px}
+.gloss dd{margin:0}
+
 .sec{font-family:var(--display);font-weight:700;font-size:18px;margin:22px 0 4px;text-wrap:balance}
 .sub3{font-family:var(--display);font-weight:700;font-size:15px;margin:18px 0 6px}
 .lead{color:var(--muted);font-size:13.5px;margin:0 0 12px}
@@ -171,6 +190,7 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;line-height:1.7}
       <button class="tab" id="tab-schools" role="tab" aria-selected="true">本校 <small id="cnt-s"></small></button>
       <button class="tab" id="tab-facilities" role="tab" aria-selected="false">連携施設 <small id="cnt-f"></small></button>
       <button class="tab" id="tab-orgs" role="tab" aria-selected="false">業界団体</button>
+      <button class="tab" id="tab-fin" role="tab" aria-selected="false">財務</button>
     </div>
     <input type="search" id="q" placeholder="学校名・施設名・住所で検索" autocomplete="off" aria-label="検索">
     <div id="filters-s" class="row">
@@ -289,6 +309,36 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;line-height:1.7}
       <li><b>評価機構 → 文部科学省</b>：文科省の委託事業を受け、2026年9月の基本指針の検討会議に資料を提出</li>
       <li><b>N高グループ</b>：私通協にも新学会にも加盟していない</li>
     </ul>
+  </section>
+
+  <section id="fin-view" hidden>
+    <h2 class="sec">運営法人の財務を比べる</h2>
+    <p class="lead">通信制高校を運営する学校法人のうち、決算書をウェブで公開していて数字を確認できた法人を並べました。単位は百万円（四捨五入）です。表は横にスクロールでき、見出しを押すと並べ替えられます。</p>
+    <div class="callout">ここに載っている数字は<b>法人全体</b>の決算です。大学・専門学校・全日制高校を一緒に運営している法人は、その分も含まれます。通信制高校だけの収支ではありません。年度も法人によって違います。</div>
+    <div class="row" style="margin-top:10px">
+      <select id="fin-sort" aria-label="並べ替え">
+        <option value="inc">規模（教育活動収入）が大きい順</option>
+        <option value="eduR">教育活動収支差額比率が高い順</option>
+        <option value="netR">純資産構成比率が高い順</option>
+        <option value="tuiR">学納金の比率が高い順</option>
+        <option value="enr">通信制高校の在籍者が多い順</option>
+      </select>
+    </div>
+    <div class="fin-wrap"><table class="fin-tbl" id="fin-tbl"></table></div>
+    <p class="fin-note">「—」は今回の公開資料から確認できなかった項目です。</p>
+    <h2 class="sec" style="margin-top:18px">法人ごとの解説</h2>
+    <div id="fin-cards"></div>
+    <h2 class="sec" style="margin-top:18px">指標の見方</h2>
+    <dl class="gloss">
+      <dt>教育活動収入</dt><dd>授業料などの学納金、補助金、手数料など、本業から入るお金。会社でいう売上に近い。</dd>
+      <dt>教育活動収支差額（比率）</dt><dd>教育活動収入から人件費・経費・減価償却などを引いた差額。本業の黒字・赤字を表す。比率はこれを教育活動収入で割ったもの。</dd>
+      <dt>経常収支差額</dt><dd>教育活動収支に、利息や配当などの教育活動外の収支を足したもの。</dd>
+      <dt>基本金組入前当年度収支差額</dt><dd>経常収支に、資産売却や災害関連などの臨時的な特別収支も足した、その年度の最終的な収支差額。</dd>
+      <dt>純資産構成比率</dt><dd>総資産のうち返す必要のない純資産が占める割合。高いほど借入などへの依存が小さい。</dd>
+      <dt>学納金の比率</dt><dd>教育活動収入のうち学生生徒等納付金が占める割合。高いほど生徒数の増減の影響を受けやすい。</dd>
+    </dl>
+    <h2 class="sec" style="margin-top:18px">掲載していない法人</h2>
+    <p class="fin-note">KTC学園（屋久島おおぞら）・鹿島学園・みつ朝日学園（鹿島朝日）・つくば開成学園・早稲田学園・科学技術学園などは、決算書を公開しているものの今回は数字を取り込めていない、または公開資料が見つかっていません。順次追加します。角川ドワンゴ学園（N高・S高・R高）は公開資料を確認したうえで追加予定です。ウィザス（第一学院）・ブロードメディア（ルネサンス）などの株式会社立の学校は学校法人会計ではないため、ここでは比べていません。</p>
   </section>
   <div class="summary" id="summary"><span><b id="hit">0</b> 件</span><span>在籍者の合計 <b id="sum">0</b> 人</span></div>
   <div class="list" id="list"></div>
@@ -440,7 +490,14 @@ function facRecCard(r) {
   </article>`;
 }
 function render() {
-  const isS = st.view === 'schools', isO = st.view === 'orgs';
+  const isS = st.view === 'schools', isO = st.view === 'orgs', isF = st.view === 'fin';
+  $('tab-fin').setAttribute('aria-selected', isF); $('fin-view').hidden = !isF;
+  if (isF) {
+    $('q').hidden = true; $('summary').hidden = true; $('list').hidden = true; $('orgs-view').hidden = true;
+    $('filters-s').hidden = true; $('filters-f').hidden = true; $('picked').hidden = true; $('more').hidden = true;
+    $('tab-schools').setAttribute('aria-selected', false); $('tab-facilities').setAttribute('aria-selected', false); $('tab-orgs').setAttribute('aria-selected', false);
+    renderFin(); return;
+  }
   $('tab-schools').setAttribute('aria-selected', isS);
   $('tab-facilities').setAttribute('aria-selected', st.view === 'facilities');
   $('tab-orgs').setAttribute('aria-selected', isO);
@@ -466,12 +523,43 @@ function render() {
   $('more').hidden = a.length <= st.shown;
   $('more').textContent = `さらに表示（残り ${nf(Math.max(0, a.length - st.shown))} 件）`;
 }
+
+const FIN = [{"id": "sanko", "name": "三幸学園", "schools": "飛鳥未来・飛鳥未来きずな・飛鳥未来きぼう", "enr": 24990, "fy": "2025年度", "inc": 61343, "tui": 46104, "exp": 54278, "edu": 7066, "ord": 10066, "pre": 7915, "asset": 217837, "debt": 45352, "net": 172485, "cash": 47645, "loan": 5402, "other": "大学（東京未来大学）・多数の専門学校・保育園なども運営", "src": "https://www.sanko.ac.jp/pdf/share/disclosure/zaimu.pdf?report=20260605", "srcname": "三幸学園 2025年度 計算関係書類", "note": "6社の中で規模が最も大きく、教育活動収支差額は約71億円の黒字。現金預金（約476億円）が借入金（約54億円）を大きく上回る。専門学校などの数字が含まれるため、通信制高校だけの収支ではない。"}, {"id": "soshi", "name": "創志学園", "schools": "クラーク記念国際・クラークNEXT・創志学園（通信制）", "enr": 14873, "fy": "2024年度", "inc": 18234, "tui": 14788, "exp": 16448, "edu": 1786, "ord": 1742, "pre": 1867, "asset": 56026, "debt": 11952, "net": 44075, "cash": null, "loan": null, "other": "環太平洋大学・全日制高校・専門学校・幼稚園なども運営", "src": "https://ipu-japan.ac.jp/ipu/wp-content/uploads/2025/07/3-6.pdf", "srcname": "創志学園 2024年度 事業報告書", "note": "教育活動収支差額は約18億円の黒字で、前年度（約12億円）から増加。純資産構成比率は約79%。大学を含む法人全体の数字。2025年度の計算書類は公開済みだが、このページではまだ取り込めていない。"}, {"id": "seisa", "name": "国際学園（星槎）", "schools": "星槎国際", "enr": 7243, "fy": "2024年度", "inc": 5893, "tui": 4348, "exp": 5547, "edu": 346, "ord": 325, "pre": 307, "asset": 6317, "debt": 3843, "net": 2474, "cash": null, "loan": null, "other": "星槎大学（通信制）・星槎もみじ中学校なども運営", "src": "https://kokusaigakuen.ac.jp/pdf/zaimu_r06.pdf", "srcname": "国際学園 令和6年度 財務概要", "note": "教育活動収支差額は約3.5億円の黒字。純資産構成比率は約39%で、6社の中で最も低い（負債の比重が大きい）。法人の在籍者は通信制の大学・高校が大半。"}, {"id": "jaa", "name": "日本航空学園", "schools": "日本航空（通信制）", "enr": 5398, "fy": "2024年度", "inc": 6458, "tui": 4044, "exp": 6826, "edu": -368, "ord": -398, "pre": 1030, "asset": 17820, "debt": 7492, "net": 10329, "cash": null, "loan": null, "other": "日本航空大学校（専修学校）・全日制高校なども運営", "src": "https://jac-n.jp/_cms/wp-content/uploads/b6b4acbc7fb575edacc9c02e92bfa94f.pdf", "srcname": "日本航空学園 令和6年度 事業活動収支計算書・貸借対照表", "src2": "https://jac-n.jp/_cms/wp-content/uploads/9ca3fbb30331884555c6357e1f60b7cb.pdf", "note": "本業にあたる教育活動収支は約3.7億円の赤字。一方で特別収支が約14億円のプラスのため、最終的な収支差額は黒字になっている。流動負債（約72億円）が流動資産（約41億円）を上回る。航空系の専修学校などを含む法人全体の数字。"}, {"id": "nhk", "name": "NHK学園", "schools": "NHK学園", "enr": 2201, "fy": "2024年度", "inc": 2828, "tui": 2187, "exp": 2956, "edu": -128, "ord": -121, "pre": -121, "asset": 4508, "debt": 594, "net": 3915, "cash": null, "loan": null, "other": "生涯学習通信講座・社会福祉士養成課程も運営", "src": "https://www.n-gaku.jp/hubfs/company2025/company/pdf/report/report_2024.pdf?hsLang=ja-jp", "srcname": "NHK学園 2024年度 事業報告書", "note": "教育活動収支差額は約1.3億円の赤字。学生生徒等納付金は2022年度の約24億円から約22億円に減った。純資産構成比率は約87%と高い。2025年度分は公開済みだが、PDFが画像のため取り込めていない。"}, {"id": "yashima", "name": "八洲学園", "schools": "八洲学園・八洲学園大学国際", "enr": 3221, "fy": "2025年度", "inc": null, "tui": null, "exp": null, "edu": null, "ord": null, "pre": null, "asset": 11852, "debt": 320, "net": 11532, "cash": null, "loan": null, "partial": true, "other": "八洲学園大学（通信制）・専門学校・全日制高校なども運営", "src": "https://www.yashima.ac.jp/univ/sp/about/information/pdf/assesment/r08_02.pdf", "srcname": "八洲学園大学 認証評価エビデンス集（令和8年6月）", "note": "総資産は約119億円、純資産構成比率は97.3%で、借入にほとんど頼っていない。収支の金額は今回の資料から読み取れなかったため空欄。負債・純資産は総資産×比率からの概算。"}];
+const pct = (a, b) => (a == null || b == null || !b) ? null : a / b * 100;
+FIN.forEach(f => { f.eduR = pct(f.edu, f.inc); f.netR = pct(f.net, f.asset); f.tuiR = pct(f.tui, f.inc); });
+const mf = v => v == null ? '—' : `<span class="${v < 0 ? 'neg' : ''}">${v < 0 ? '△' + nf(-v) : nf(v)}</span>`;
+const pf = v => v == null ? '—' : `<span class="${v < 0 ? 'neg' : ''}">${v.toFixed(1)}%</span>`;
+let finSort = 'inc';
+function renderFin() {
+  const rows = [...FIN].sort((a, b) => (b[finSort] ?? -1e9) - (a[finSort] ?? -1e9));
+  const cols = [['name','法人'],['fy','年度'],['enr','通信制在籍'],['inc','教育活動収入'],['tui','学納金'],['edu','教育活動収支差額'],['eduR','同比率'],['ord','経常収支差額'],['pre','基本金組入前収支差額'],['asset','総資産'],['debt','負債'],['net','純資産'],['netR','純資産構成比率'],['cash','現金預金'],['loan','借入金']];
+  const cell = (f, k) => k === 'name' ? `<b>${esc(f.name)}</b>` : k === 'fy' ? f.fy : k === 'enr' ? nf(f.enr) + '人' : /R$/.test(k) ? pf(f[k]) : mf(f[k]);
+  $('fin-tbl').innerHTML = '<thead><tr>' + cols.map(([k, l]) => `<th data-k="${k}" style="cursor:pointer">${l}</th>`).join('') + '</tr></thead><tbody>'
+    + rows.map(f => '<tr>' + cols.map(([k]) => `<td>${cell(f, k)}</td>`).join('') + '</tr>').join('') + '</tbody>';
+  const max = Math.max(...FIN.map(f => f.inc || 0));
+  const bar = (label, v, scale, fmt) => v == null ? '' : `<div class="bar"><span>${label}</span><span class="tr"><span class="fl${v < 0 ? ' neg' : ''}" style="width:${Math.min(100, Math.abs(v) / scale * 100)}%"></span></span><span style="text-align:right">${fmt(v)}</span></div>`;
+  $('fin-cards').innerHTML = rows.map(f => `<article class="fcard">
+    <h3>${esc(f.name)} <span class="sub">${f.fy}</span></h3>
+    <div class="sub">通信制高校：${esc(f.schools)}（在籍 ${nf(f.enr)}人）／ ${esc(f.other)}</div>
+    <div class="bars">
+      ${bar('教育活動収入', f.inc, max, v => nf(v) + '百万')}
+      ${bar('本業の収支率', f.eduR, 15, v => v.toFixed(1) + '%')}
+      ${bar('純資産構成', f.netR, 100, v => v.toFixed(1) + '%')}
+      ${bar('学納金の比率', f.tuiR, 100, v => v.toFixed(1) + '%')}
+    </div>
+    <p style="margin:4px 0">${esc(f.note)}</p>
+    <div class="links">${link(f.src, '出典：' + f.srcname)}${f.src2 ? link(f.src2, '貸借対照表') : ''}</div>
+  </article>`).join('');
+}
+$('fin-sort').addEventListener('change', e => { finSort = e.target.value; renderFin(); });
+$('fin-tbl').addEventListener('click', e => { const k = e.target.closest('th')?.dataset.k; if (k && !['name','fy'].includes(k)) { finSort = k; $('fin-sort').value = [...$('fin-sort').options].some(o => o.value === k) ? k : $('fin-sort').value; renderFin(); } });
 function setView(v, keep) { st.view = v; st.shown = 40; if (!keep) { st.q = ''; $('q').value = ''; } render(); }
 
 $('tab-schools').addEventListener('click', () => { location.hash = 'schools'; });
 $('tab-facilities').addEventListener('click', () => { location.hash = 'facilities'; });
 $('tab-orgs').addEventListener('click', () => { location.hash = 'orgs'; });
-const viewFromHash = () => ({'#facilities': 'facilities', '#orgs': 'orgs'}[location.hash] || 'schools');
+$('tab-fin').addEventListener('click', () => { location.hash = 'fin'; });
+const viewFromHash = () => ({'#facilities': 'facilities', '#orgs': 'orgs', '#fin': 'fin'}[location.hash] || 'schools');
 window.addEventListener('hashchange', () => setView(viewFromHash(), true));
 $('q').addEventListener('input', e => { st.q = e.target.value; st.shown = 40; render(); });
 $('merge-s').addEventListener('click', () => { st.mergeS = !st.mergeS; st.shown = 40; render(); });
