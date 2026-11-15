@@ -91,6 +91,14 @@ h1{font-family:var(--display);font-weight:700;font-size:22px;margin:0;text-wrap:
 .trend{margin:6px 0 2px}
 .trend svg{width:100%;height:auto;display:block}
 .trend .cap{font-size:11.5px;color:var(--muted)}
+
+.hub{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0 4px}
+.hub a,.hub button{font:inherit;text-align:left;display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);text-decoration:none;cursor:pointer}
+.hub b{font-family:var(--display);font-size:14.5px;color:var(--accent)}
+.hub span{font-size:12px;color:var(--muted);line-height:1.45}
+.hub .ext b::after{content:" ›"}
+.kpi{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin:8px 0 0}
+.kpi b{color:var(--ink);font-size:14px}
 .fin-note{font-size:12.5px;color:var(--muted);margin:6px 0 0}
 .fin-tbl{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums;background:var(--card);border:1px solid var(--line);border-radius:9px;overflow:hidden}
 .fin-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px 0 0}
@@ -219,12 +227,25 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;line-height:1.7}
     <details class="about">
       <summary>更新履歴</summary>
       <ul class="hist">
+        <li>2026年11月15日：トップの案内メニュー、全国の推移（学校基本調査）のページ、株式会社立の運営会社の業績を追加。各ページの行き来をしやすくしました</li>
         <li>2026年11月15日：都道府県別の地図、学校の比較、CSVダウンロード、学校ごとのページ、2027年度の開校予定校、財務の推移グラフを追加</li>
         <li>2026年11月15日：運営法人の財務を比べる「財務」タブを追加</li>
         <li>2026年11月15日：公開（文部科学省 令和8年4月1日時点データ）</li>
       </ul>
     </details>
-    <nav class="topnav"><a href="https://zy03o7k6.github.io/tsushinsei-list/schools.html">学校ごとのページ一覧</a><a href="https://zy03o7k6.github.io/tsushinsei-list/new.html">2027年度に開校予定の通信制高校</a></nav>
+    
+
+    <div class="kpi"><span>全国の通信制高校の生徒 <b>311,792</b>人（高校生の9.9%、2026年度速報）</span><a href="trend.html">全国の推移を見る ›</a></div>
+    <nav class="hub" aria-label="このサイトでできること">
+      <button type="button" data-go="schools"><b>学校を探す</b><span>本校349校を在籍者数・定員・業界団体で絞り込み、比べる</span></button>
+      <button type="button" data-go="facilities"><b>キャンパスを探す</b><span>サポート校・キャンパス4,632か所を都道府県や学校で探す</span></button>
+      <button type="button" data-go="map"><b>地図で見る</b><span>都道府県ごとのキャンパス数や在籍者数</span></button>
+      <button type="button" data-go="fin"><b>財務を比べる</b><span>運営する学校法人・会社の決算</span></button>
+      <a class="ext" href="trend.html"><b>全国の推移</b><span>学校基本調査で見る学校数・生徒数の移り変わり</span></a>
+      <a class="ext" href="new.html"><b>2027年度の開校予定</b><span>新しく開校・開設する通信制高校</span></a>
+      <a class="ext" href="schools.html"><b>学校ごとのページ</b><span>1校ずつの詳しいページを都道府県別に</span></a>
+      <button type="button" data-go="orgs"><b>業界団体</b><span>私通協・新学会への加盟状況と団体の関係</span></button>
+    </nav>
   </header>
 
   <div class="sticky">
@@ -391,6 +412,11 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;line-height:1.7}
     <p class="fin-note">「—」は今回の公開資料から確認できなかった項目です。</p>
     <h2 class="sec" style="margin-top:18px">法人ごとの解説</h2>
     <div id="fin-cards"></div>
+
+    <h2 class="sec" style="margin-top:18px">株式会社立の学校の運営会社</h2>
+    <div class="callout">株式会社が運営する学校は企業会計なので、上の学校法人とは決算の形が違います。ここでは上場会社が公表している、通信制高校を含む事業セグメントの売上高と営業利益を載せています。会社全体ではなく事業部門の数字で、本社費用などを配分する前の利益です。</div>
+    <div id="kabu-cards"></div>
+    <p class="fin-note">株式会社立の学校は全国に15校あります（令和7年度 通信制高等学校実態調査）。勝浦成美（成美学園）、アットマーク・ラーニング（美川特区アットマーク国際・明蓬館）などの非上場の会社は、決算の公表を確認できていないため載せていません。</p>
     <h2 class="sec" style="margin-top:18px">指標の見方</h2>
     <dl class="gloss">
       <dt>教育活動収入</dt><dd>授業料などの学納金、補助金、手数料など、本業から入るお金。会社でいう売上に近い。</dd>
@@ -401,7 +427,7 @@ footer{margin-top:28px;color:var(--muted);font-size:12px;line-height:1.7}
       <dt>学納金の比率</dt><dd>教育活動収入のうち学生生徒等納付金が占める割合。高いほど生徒数の増減の影響を受けやすい。</dd>
     </dl>
     <h2 class="sec" style="margin-top:18px">掲載していない法人</h2>
-    <p class="fin-note">KTC学園（屋久島おおぞら）・鹿島学園・みつ朝日学園（鹿島朝日）・つくば開成学園・早稲田学園・科学技術学園などは、決算書を公開しているものの今回は数字を取り込めていない、または公開資料が見つかっていません。順次追加します。ウィザス（第一学院）・ブロードメディア（ルネサンス）などの株式会社立の学校は学校法人会計ではないため、ここでは比べていません。</p>
+    <p class="fin-note">KTC学園（屋久島おおぞら）・鹿島学園・みつ朝日学園（鹿島朝日）・つくば開成学園・早稲田学園・科学技術学園などは、決算書を公開しているものの今回は数字を取り込めていない、または公開資料が見つかっていません。順次追加します。株式会社立の学校の運営会社は、上の「株式会社立の学校の運営会社」に別枠で載せています。</p>
   </section>
   <div class="summary" id="summary"><span><b id="hit">0</b> 件</span><span>在籍者の合計 <b id="sum">0</b> 人</span><button class="sumbtn" id="csv" type="button">CSVで保存</button></div>
   <div class="list" id="list"></div>
@@ -441,7 +467,7 @@ F.forEach((f, i) => { f._i = i; f._k = norm([f[1], schoolName(f), f[2]].join(' '
 const st = { prefF: '', view: 'schools', q: '', kind: '', area: '', pref: '', mem: '', sortS: 'orig', ftype: '', schools: new Set(), sortF: 'orig', shown: 40, mergeS: true, mergeF: true };
 
 
-const BASE = 'https://zy03o7k6.github.io/tsushinsei-list/';
+const BASE = '';
 const PREFS = ['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県'];
 const prefOf = a => { const s = (a || '').normalize('NFKC').replace(/\s/g, ''); const m = s.match(/^(北海道|東京都|京都府|大阪府|[^都道府県]{2,3}県)/); return m && PREFS.includes(m[1]) ? m[1] : ''; };
 S.forEach(s => { s._p = prefOf(s[3]); });
@@ -470,7 +496,7 @@ function schoolCard(s) {
   const kc = s[8] === '公立' ? ' pub' : s[8] === '株式会社立' ? ' kk' : '';
   const depts = s[12].map(d => `<span class="tag plain">${esc(d)}</span>`).join('');
   return `<article class="card">
-    <h2>${esc(s[2])}</h2>
+    <h2><a href="${BASE}s/${s[16]}.html" style="color:inherit;text-decoration:none">${esc(s[2])}</a></h2>
     <div class="sub">${esc(s[1])}・所轄 ${esc(s[0])}</div>
     <div class="tags"><span class="tag${kc}">${esc(s[8])}</span><span class="tag">${esc(s[10])}</span><span class="tag plain">${esc(s[9])}</span><span class="tag plain">修業年限 ${esc(s[13])}</span>${depts}</div>
     <div class="tags mem"><span class="mlabel">業界団体</span>${s[15].includes('shitsukyo') ? '<span class="tag org">私通協</span>' : '<span class="tag off">私通協 未加盟</span>'}${s[15].includes('shingakkai') ? '<span class="tag org">新学会</span>' : '<span class="tag off">新学会 未加盟</span>'}</div>
@@ -483,7 +509,7 @@ function schoolCard(s) {
 function facCardRaw(f) {
   return `<article class="card">
     <h2>${esc(f[1])}</h2>
-    <div class="sub">本校：${esc(schoolName(f))}</div>
+    <div class="sub">本校：${typeof f[0] === 'number' ? `<a href="${BASE}s/${S[f[0]][16]}.html">${esc(schoolName(f))}</a>` : esc(schoolName(f))}</div>
     <div class="tags"><span class="tag${f[5] ? ' pub' : ''}">${f[5] ? '面接指導等実施施設' : '学習等支援施設'}</span></div>
     ${meter(f[7], f[6])}
     <div class="sub">${esc(f[2])}</div>
@@ -545,7 +571,7 @@ function schoolRecCard(r) {
   const kc = k => k === '公立' ? ' pub' : k === '株式会社立' ? ' kk' : '';
   return `<article class="card">
     <h2>${esc(s0[1])}</h2>
-    <div class="sub">${ss.length}校の合計：${ss.map(s => esc(s[2])).join('・')}</div>
+    <div class="sub">${ss.length}校の合計：${ss.map(s => `<a href="${BASE}s/${s[16]}.html">${esc(s[2])}</a>`).join('・')}</div>
     <div class="tags">${kinds.map(k => `<span class="tag${kc(k)}">${esc(k)}</span>`).join('')}${areas.map(a => `<span class="tag">${esc(a)}</span>`).join('')}<span class="tag plain">所轄 ${prefsU.map(esc).join('・')}</span></div>
     <div class="tags mem"><span class="mlabel">業界団体</span>${orgTag(ss, 'shitsukyo', '私通協')}${orgTag(ss, 'shingakkai', '新学会')}</div>
     ${meter(r.enr, r.cap, '定員の合計')}
@@ -560,7 +586,7 @@ function facRecCard(r) {
   const addr = m.map(f => f[2] || '').sort((a, b) => b.length - a.length)[0];
   return `<article class="card">
     <h2>${esc(f0[1])}</h2>
-    <div class="sub">${m.length}校の合計：${m.map(f => esc(schoolName(f))).join('・')}</div>
+    <div class="sub">${m.length}校の合計：${m.map(f => typeof f[0] === 'number' ? `<a href="${BASE}s/${S[f[0]][16]}.html">${esc(schoolName(f))}</a>` : esc(schoolName(f))).join('・')}</div>
     <div class="tags">${types.map(t => `<span class="tag${t ? ' pub' : ''}">${t ? '面接指導等実施施設' : '学習等支援施設'}</span>`).join('')}</div>
     <div class="nums"><span class="n">${nf(r.enr)}</span><span class="of">人（${m.length}校の在籍者の合計）</span></div>
     <div class="brk">${m.map(f => `<span>${esc(shortName(schoolName(f)))} <b>${nf(f[7])}</b>人 ／ 登録定員 ${nf(f[6] ?? '記載なし')}</span>`).join('')}</div>
@@ -578,7 +604,7 @@ function render() {
   if (!listView) {
     $('filters-s').hidden = true; $('filters-f').hidden = true; $('picked').hidden = true; $('more').hidden = true;
     if (v === 'orgs') { if (!orgsBuilt) buildOrgs(); else drawTreemap(); }
-    else if (v === 'fin') renderFin(); else renderMap();
+    else if (v === 'fin') { renderFin(); renderKabu(); } else renderMap();
     return;
   }
   $('pref-f').value = st.prefF;
@@ -620,6 +646,22 @@ function trendSvg(h) {
   h.y.forEach((y, i) => { s += `<text x="${x(i)}" y="${H - 2}" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">${y}年度</text>`; });
   return s + '</svg>';
 }
+
+const KABU = [{"company": "株式会社ウィザス", "setter": "株式会社ウィザス", "schools": "第一学院高等学校（高萩校・養父校）", "period": "2025年3月期（2024年4月〜2025年3月）", "seg": "高校・大学事業", "sales": 9500, "op": 3546, "sales_prev": 9148, "op_prev": 3871, "note": "売上は前期より約3.5億円増えた一方、人件費や対面行事費、新しい拠点の開設費が増えて営業利益は約3億円減った。セグメントには提携大学の通信教育課程の支援なども含まれ、本社費用を配分する前の利益。同社は2025年に投資ファンドの買収で上場廃止となったため、上場会社として公表された最後の通期決算。", "src": [["2025年3月期 決算説明資料", "https://www2.jpx.co.jp/disc/96960/140120250512543617.pdf"], ["2025年3月期 決算短信", "https://equity.jiji.com/storage/tdnet/140120250512540193.pdf"]]}, {"company": "ブロードメディア株式会社", "setter": "ブロードメディア株式会社", "schools": "ルネサンス・ルネサンス豊田・ルネサンス大阪", "period": "2026年3月期（2025年4月〜2026年3月）", "seg": "教育", "sales": 5507, "op": 967, "sales_prev": 5385, "op_prev": 841, "note": "セグメント全体は増収増益。ただし通信制高校事業は、ルネサンス大阪・豊田が定員を満たした一方、ルネサンス高校（大子校）の在籍者が前年を下回り、労務費や広告費も増えて減収減益だった。セグメントには日本語教育やAI・プログラミング教育も含まれる。", "src": [["キタイシホン（有価証券報告書の要約）", "https://kitaishihon.com/company/4347/business"], ["2026年3月期 中間決算短信", "https://www.broadmedia.co.jp/ir/download/dock/ir/20251030_001_02.pdf"]]}];
+function renderKabu() {
+  $('kabu-cards').innerHTML = KABU.map(k => {
+    const enr = S.filter(s => s[1] === k.setter).reduce((t, s) => t + (s[7] || 0), 0);
+    const r = (k.op / k.sales * 100).toFixed(1), rp = (k.op_prev / k.sales_prev * 100).toFixed(1);
+    return `<article class="fcard"><h3>${esc(k.company)} <span class="sub">${esc(k.period)}</span></h3>
+      <div class="sub">通信制高校：${esc(k.schools)}（在籍 ${nf(enr)}人）／ セグメント：${esc(k.seg)}</div>
+      <table class="fin-tbl" style="margin:8px 0"><thead><tr><th></th><th>今期</th><th>前期</th></tr></thead><tbody>
+        <tr><td>売上高（百万円）</td><td>${nf(k.sales)}</td><td>${nf(k.sales_prev)}</td></tr>
+        <tr><td>営業利益（百万円）</td><td>${nf(k.op)}</td><td>${nf(k.op_prev)}</td></tr>
+        <tr><td>営業利益率</td><td>${r}%</td><td>${rp}%</td></tr></tbody></table>
+      <p style="margin:4px 0">${esc(k.note)}</p>
+      <div class="links">${S.filter(s => s[1] === k.setter).map(s => `<a href="${BASE}s/${s[16]}.html">${esc(shortName(s[2]))}のページ</a>`).join('')}${k.src.map(([n, u]) => link(u, '出典：' + n)).join('')}</div></article>`;
+  }).join('');
+}
 let finSort = 'inc';
 function renderFin() {
   const rows = [...FIN].sort((a, b) => (b[finSort] ?? -1e9) - (a[finSort] ?? -1e9));
@@ -640,7 +682,7 @@ function renderFin() {
     </div>
     ${f.hist ? `<div class="trend"><div class="cap">推移（百万円）：線＝教育活動収入、棒＝${esc(f.hist.dl)}</div>${trendSvg(f.hist)}<div class="cap">出典：${esc(f.hist.src)}</div></div>` : ''}
     <p style="margin:4px 0">${esc(f.note)}</p>
-    <div class="links">${link(f.src, '出典：' + f.srcname)}${f.src2 ? link(f.src2, f.src2label || '資料2') : ''}</div>
+    <div class="links">${S.filter(s => s[1] === f.setter).map(s => `<a href="${BASE}s/${s[16]}.html">${esc(shortName(s[2]))}のページ</a>`).join('')}${link(f.src, '出典：' + f.srcname)}${f.src2 ? link(f.src2, f.src2label || '資料2') : ''}</div>
   </article>`).join('');
 }
 $('fin-sort').addEventListener('change', e => { finSort = e.target.value; renderFin(); });
@@ -678,7 +720,7 @@ function mapDetail(p) {
   const top = [...bySchool].sort((a, b) => b[1] - a[1]).slice(0, 5);
   $('map-detail').innerHTML = `<h3>${p}</h3>
     <div>連携施設 <b>${nf(fs.length)}</b> か所（在籍 ${nf(fe)} 人）／ 本校 <b>${nf(ss.length)}</b> 校（在籍 ${nf(ss.reduce((t, s) => t + (typeof s[7] === 'number' ? s[7] : 0), 0))} 人）</div>
-    ${top.length ? `<div class="sub" style="margin-top:6px">この都道府県の連携施設に在籍する生徒が多い本校</div><ol>${top.map(([n, e]) => `<li>${esc(n)}　${nf(e)}人</li>`).join('')}</ol>` : ''}
+    ${top.length ? `<div class="sub" style="margin-top:6px">この都道府県の連携施設に在籍する生徒が多い本校</div><ol>${top.map(([n, e]) => { const s = S.find(x => x[2] === n); return `<li>${s ? `<a href="${BASE}s/${s[16]}.html">${esc(n)}</a>` : esc(n)}　${nf(e)}人</li>`; }).join('')}</ol>` : ''}
     <div class="links" style="margin-top:6px">${fs.length ? `<button class="linkbtn" data-goF="${p}">この都道府県の連携施設を見る</button>` : ''}</div>`;
   document.querySelectorAll('.tile').forEach(b => b.classList.toggle('on', b.dataset.p === p));
 }
@@ -754,6 +796,8 @@ $('csv').addEventListener('click', () => {
   const el = document.createElement('a'); el.href = url; el.download = st.view === 'schools' ? '通信制高校_本校.csv' : '通信制高校_連携施設.csv';
   document.body.appendChild(el); el.click(); el.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000);
 });
+
+document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => { location.hash = b.dataset.go; document.querySelector('.sticky').scrollIntoView({behavior: 'smooth'}); }));
 function setView(v, keep) { $('cmp-ov').hidden = true; $('overlay').hidden = true; st.view = v; st.shown = 40; if (!keep) { st.q = ''; $('q').value = ''; } render(); }
 
 $('tab-schools').addEventListener('click', () => { location.hash = 'schools'; });
@@ -761,7 +805,13 @@ $('tab-facilities').addEventListener('click', () => { location.hash = 'facilitie
 $('tab-orgs').addEventListener('click', () => { location.hash = 'orgs'; });
 $('tab-fin').addEventListener('click', () => { location.hash = 'fin'; });
 $('tab-map').addEventListener('click', () => { location.hash = 'map'; });
-const viewFromHash = () => ({'#facilities': 'facilities', '#orgs': 'orgs', '#fin': 'fin', '#map': 'map'}[location.hash] || 'schools');
+const SID = Object.fromEntries(S.map((s, i) => [s[16], i]));
+const viewFromHash = () => {
+  const [h, arg] = location.hash.split(':');
+  if (h === '#facilities' && arg && SID[arg] != null) { st.schools = new Set([SID[arg]]); st.prefF = ''; st.mergeF = true; }
+  if (h === '#schools' && arg && SID[arg] != null) { st.q = S[SID[arg]][2]; $('q').value = st.q; }
+  return ({'#facilities': 'facilities', '#orgs': 'orgs', '#fin': 'fin', '#map': 'map'}[h] || 'schools');
+};
 window.addEventListener('hashchange', () => setView(viewFromHash(), true));
 $('q').addEventListener('input', e => { st.q = e.target.value; st.shown = 40; render(); });
 $('merge-s').addEventListener('click', () => { st.mergeS = !st.mergeS; st.shown = 40; render(); });
