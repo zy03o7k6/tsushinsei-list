@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zy03o7k6.github.io/tsushinsei-list/sitemap.xml
